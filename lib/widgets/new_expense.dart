@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 
-// yMd is a method of intl package
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
@@ -31,6 +30,29 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController.text); // if(string entered -> NULL < tryparse('123.5')-> 123.5)
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0; // if amount is invalid (not a number or less than 0)
+        
+    if(_titleController.text.trim().isEmpty || amountIsInvalid == true || _selectedDate == null) {
+     showDialog( // this is the error dialog
+      context: context,
+      builder: (ctx) => AlertDialog(
+      title: const Text('Invalid input'),
+      content: const Text('Please make sure a valid title, amount and date was entered.'),
+      actions: [
+        TextButton(onPressed: (){
+          Navigator.pop(ctx);
+        }, 
+        child: const Text('Okay'),
+        )
+      ],
+     ),
+     );
+     return;
+    }
+  }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -57,11 +79,13 @@ class _NewExpenseState extends State<NewExpense> {
                 child: TextField(
                   controller: _amountController,
                   decoration: const InputDecoration(
-                      prefixText: '\₹ ', labelText: 'Amount'),
+                      prefixText: '₹ ', labelText: 'Amount'),
                   keyboardType: TextInputType.number,
                 ),
               ),
+
               const SizedBox(width: 16),
+
               Expanded(
                 child: Row(
                   children: [
@@ -106,9 +130,8 @@ class _NewExpenseState extends State<NewExpense> {
                   child: const Text('Cancel')),
               ElevatedButton(
                   onPressed: () {
-                    print(_amountController.text);
-                    print(_titleController.text);
-                    print(_selectedDate);
+                    //saveExpense(); // save the expense
+                    Navigator.of(context).pop(); // closes the modal bottom sheet
                   },
                   child: const Text('Save expense')),
             ],

@@ -6,7 +6,7 @@ void main() {
   runApp(
     const MaterialApp(
     debugShowCheckedModeBanner: false,
-      home: Expenses(), // expenses class from Expenses.dart
+      home: Expenses(), // expense  s class from Expenses.dart
     ),
   );
 }
