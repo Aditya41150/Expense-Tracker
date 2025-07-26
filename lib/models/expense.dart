@@ -1,13 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:intl/intl.dart';  
+import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd();
 
 const uuid = Uuid();
 
-// enums basically creates a custom type
-enum Category { food, travel, leisure, work } 
+enum Category { food, travel, leisure, work }
 
 const categoryIcons = {
   Category.food: Icons.lunch_dining,
@@ -17,7 +17,7 @@ const categoryIcons = {
 };
 
 class Expense {
-  Expense({ // constructor to accept values
+  Expense({
     required this.title,
     required this.amount,
     required this.date,
@@ -26,7 +26,7 @@ class Expense {
 
   final String id;
   final String title;
-  final double amount;  
+  final double amount;
   final DateTime date;
   final Category category;
 
